@@ -1,0 +1,27 @@
+<div class="container-fluid px-4">
+    <ng-container *ngIf="data.level > 0; else nullLevel">
+        <h1 class="mt-4 mb-4">{{data.name}}</h1><button
+            style="background-color: transparent; border: solid transparent; cursor: help;"
+            title="Ve tvém okolí se nachází zlatý důl, ve kterém těžíš zlaté valouny. Touto surovinou můžeš následně platit za stavbu budov či rekrutování jednotek. Pamatuj, že čím vyšší level dolu budeš mít tím vyšší počet zlata vytěžíš za hodinu.">
+            <i class="fas fa-info-circle"></i></button>
+        <hr>
+        <div class="row justify-content-start mb-4">
+            <h5>Těžba při <b>aktuálním</b> stupni budovy (Level {{data.level}})</h5>
+            <div class="col">
+                Počet vytěženého zlata: <b>{{displayProduction()}} </b> <i class="fas fa-circle"
+                    style="color: rgb(139, 126, 0);"></i> <b> / hodina</b>
+            </div>
+        </div>
+        <div class="row justify-content-start mb-4">
+            <h5>Těžba při <b>dalším</b> stupni budovy (Level {{data.level + 1}})</h5>
+            <div class="col">
+                Počet vytěženého zlata: <b style="color: darkgreen;">{{displayProduction(true)}} </b><i
+                    class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+                <b> / hodina</b>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #nullLevel>
+        <h2 class="display-4 m-5">Budova dosud nebyla postavena!</h2>
+    </ng-template>
+</div>

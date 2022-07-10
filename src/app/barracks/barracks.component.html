@@ -1,0 +1,56 @@
+<div class="container-fluid px-4">
+    <ng-container *ngIf="data.level > 0; else nullLevel">
+        <h1 class="mt-4 mb-4">{{data.name}}</h1><button
+            style="background-color: transparent; border: solid transparent; cursor: help;"
+            title="V kasárnách můžeš rekrutovat nové jednotky a připravit se tak na těžké časy, které mohou nastat.">
+            <i class="fas fa-info-circle"></i></button>
+        <hr>
+        <div id="army-table">
+            <div class="row justify-content-around mb-4">
+                <div class="col-2">
+                    <b>Jednotka</b>
+                </div>
+                <div class="col-2">
+                    <b>Aktuální počet</b>
+                </div>
+                <div class="col-2">
+                    <b>Náklady / 1</b>
+                </div>
+                <div class="col-2">
+                    <b>Čas rekrutace / 1</b>
+                </div>
+                <div class="col-2">
+                    <b>Útok/Obrana</b>
+                </div>
+                <div class="col-2">
+                    <b>Rekrutace</b>
+                </div>
+            </div>
+            <div class="row justify-content-around mb-2" *ngFor="let unit of data.soldiers_type">
+                <div class="col-2">
+                    <i [class]="unit.icon"></i> {{unit.name}}
+                </div>
+                <div class="col-2">{{numberOfSol(unit.link)}}</div>
+                <div class="col-2">
+                    {{unit.priceGold}} <i class="fas fa-cube" style="color: rgb(139, 126, 0);"></i> /
+                    {{unit.priceCoins}} <i class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+                </div>
+                <div class="col-2">
+                    <ng-container *ngIf="unit.link !== settings.recruitingUpgradingState">{{displayBuildTime(time(unit) / settings.speedUp)}}</ng-container>
+                    <ng-container *ngIf="unit.link === settings.recruitingUpgradingState"><strong style="color: darkgreen;">{{recruitingTime}}</strong></ng-container>
+                </div>
+                <div class="col-2">
+                    <span>{{unit.attack}}/{{unit.defence}}</span>
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-primary" (click)="openDialog(unit)" [disabled]="settings.activeRecruitState">
+                        Rekrutovat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #nullLevel>
+        <h2 class="display-4 m-5">Budova dosud nebyla postavena!</h2>
+    </ng-template>
+</div>

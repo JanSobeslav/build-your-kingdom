@@ -1,0 +1,55 @@
+<div class="container-fluid px-4">
+    <ng-container *ngIf="data.level > 0; else nullLevel">
+        <h1 class="mt-4 mb-4">{{data.name}}</h1><button
+            style="background-color: transparent; border: solid transparent; cursor: help;"
+            title="V mincovně máš možnost razit zlaté mince, které poslouží jako hodnotné platidlo. Buď ovšem rozvážný! Ne vždy se vyplatí jimi platit a obchodníci tě rádi oberou, někdy však moc dobře nepočítají.">
+            <i class="fas fa-info-circle"></i></button>
+        <div class="row justify-content-start mb-4">
+            <div class="col-4">
+            </div>
+            <div class="col-2">
+                <b>Počet mincí</b>
+            </div>
+            <div class="col-2">
+                <b>Čas</b>
+            </div>
+            <div class="col-2">
+                <b>Potřebné zlato</b>
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+        <div class="row justify-content-start mb-4">
+            <div class="col-4">
+                <input type="range" class="form-range" [(ngModel)]="coinsRangeInput" min="1" max="5" [disabled]="settings.activeMintState">
+            </div>
+            <div class="col-2" id="coins">
+                {{coinsRangeInput}}
+            </div>
+            <div class="col-2" id="coinTime">
+                <ng-container *ngIf="!settings.activeMintState">{{displayBuildTime(time(data.coin.time))}}</ng-container>
+                <ng-container *ngIf="settings.activeMintState"><strong style="color: darkgreen;">{{coinTime}}</strong></ng-container>
+                
+            </div>
+            <div class="col-2" [style]="noGold ? 'color: red' : 'color: black'">
+                {{priceGold()}}
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary" (click)="makeCoins()" [disabled]="noGold || settings.activeMintState">Vyrazit</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row justify-content-start mb-4">
+            <h5>Ražba zlatých mincí při příštím stupni budovy (Level {{data.level + 1}})</h5>
+            <div class="col">
+                Vyražené mince: <b>1</b>
+                <i class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+                za <b style="color: darkgreen;">
+                    {{displayBuildTime(time(data.coin.time, true))}}</b>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #nullLevel>
+        <h2 class="display-4 m-5">Budova dosud nebyla postavena!</h2>
+    </ng-template>
+</div>

@@ -1,0 +1,90 @@
+
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">{{unit.name}}</h5><button class="btn-close" (click)="dialogRef.close()"></button>
+         </div>
+         <div class="modal-body">
+            <nav>
+               <div class="nav nav-tabs" id="nav-tab" role="tablist">
+
+                  <button class="nav-link" [ngClass]="selectedTab ? 'active' : ''" (click)="selectedTab = !selectedTab">
+                     Rekrutovat
+                  </button>
+
+                  <button class="nav-link" [ngClass]="!selectedTab ? 'active' : ''" (click)="selectedTab = !selectedTab">
+                     Propustit ze služby
+                  </button>
+
+               </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+               <div class="tab-pane fade" [ngClass]="selectedTab ? 'show active' : ''" role="tabpanel"
+                  aria-labelledby="nav-recruit2-tab" *ngIf="selectedTab">
+                  <div class="container">
+                     <div class="row justify-content-around mt-4">
+                        <div class="col-3">
+                           <b>Počet</b>
+                        </div>
+                        <div class="col-3">
+                           <b>Náklady</b>
+                        </div>
+                        <div class="col-3">
+                           <b>Čas</b>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
+                     </div>
+                     <div class="row justify-content-around mt-2 mb-2">
+                        <div class="col-3">
+                           <input type="number" class="form-control" min="1" [(ngModel)]="recruitNum">
+                        </div>
+                        <div class="col-3" 
+                        [style]="(noGold && radioValue === 'inputGold') || (noCoins && radioValue === 'inputCoins') ? 
+                        'color: red' : 'color: black'">
+                           <input type="radio" name="flexRadioDefault" value="inputGold" [(ngModel)]="radioValue" checked>{{priceGold()}} <i class="fas fa-cube" style="color: rgb(139, 126, 0);"></i> /
+                           {{priceCoins()}} <i class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+                           <input type="radio" name="flexRadioDefault" value="inputCoins" [(ngModel)]="radioValue">
+                        </div>
+                        <div class="col-3" [style]="noGold ? 'color: red' : 'color: black'">
+                           {{displayBuildTime((time() * +recruitNum) / settings.speedUp)}}
+                        </div>
+                        <div class="col-3">
+                           <button class="btn btn-primary" [disabled]="noGold" (click)="recruit()">OK</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" [ngClass]="!selectedTab ? 'show active' : ''" role="tabpanel" aria-labelledby="nav-discharge2-tab"  *ngIf="!selectedTab">
+                  <div class="container">
+                     <div class="row justify-content-around mt-4">
+                        <div class="col-3">
+                           <b>Počet</b>
+                        </div>
+                        <div class="col-3">
+                           <b>Vrácení</b>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
+                     </div>
+                     <div class="row justify-content-around mt-2 mb-2">
+                        <div class="col-3">
+                           <input type="number" class="form-control" value="1" id="basic-url" aria-describedby="basic-addon3"
+                              min="1">
+                        </div>
+                        <div class="col-3">
+                           3 <i class="fas fa-cube" style="color: rgb(139, 126, 0);"></i>
+                        </div>
+                        <div class="col-3">
+                           <button class="btn btn-primary">OK</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   

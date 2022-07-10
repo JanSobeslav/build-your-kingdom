@@ -1,0 +1,34 @@
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Budovy</div><a class="nav-link castle" routerLink="castle" routerLinkActive="active">
+                        <div class="sb-nav-link-icon"><i class="fab fa-fort-awesome-alt"></i>
+                        </div>Hrad
+                    </a><a class="nav-link gold-mine" routerLink="gold-mine" routerLinkActive="active">
+                        <div class="sb-nav-link-icon"><i class="fas fa-cubes"></i>
+                        </div>Zlatý důl
+                    </a><a class="nav-link barracks" routerLink="barracks" routerLinkActive="active">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chess-rook"></i>
+                        </div>Kasárna
+                    </a><a class="nav-link mint" routerLink="mint" routerLinkActive="active">
+                        <div class="sb-nav-link-icon"><i class="fas fa-coins"></i>
+                        </div>Mincovna
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+
+        <ng-content></ng-content>
+        <footer class="py-2 mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-start small">
+                    <span class="text-muted" style="margin-left: 1%; margin-top: 1%;"><small>Čas: {{time}}</small></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

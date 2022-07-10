@@ -1,0 +1,49 @@
+<div class="container-fluid px-4" id="container-castle">
+    <h1 class="mt-4">Hrad</h1><button style="background-color: transparent; border: solid transparent; cursor: help;"
+        title="Hrad je místo, odkud řídíš své město. Především tu stavíš a vylepšuješ budovy, ale také máš možnost zde vidět svůj postup.">
+        <i class="fas fa-info-circle"></i></button>
+    <div class="container mt-4 ml-4">
+        <div class="row justify-content-around mb-4">
+            <div class="col-2">
+                <b>Budova</b>
+            </div>
+            <div class="col-2">
+                <b>Stupeň budovy</b>
+            </div>
+            <div class="col-2">
+                <b>Cena dalšího stupně</b><br>
+                <input type="radio" name="flexRadioDefault" value="inputGold" [(ngModel)]="radioValue" checked>
+                    <i class="fas fa-cube ms-2" style="color: rgb(139, 126, 0);"></i> / 
+                    <i class="fas fa-circle me-2" style="color: rgb(139, 126, 0);"></i>
+                <input type="radio" name="flexRadioDefault" value="inputCoins" [(ngModel)]="radioValue">
+            </div>
+            <div class="col-2">
+                <b>Čas pro stavbu</b><br>
+                <ng-container *ngIf="!canUpgrade"><span style="color: red">Nemáš zlato/mince!</span></ng-container>
+            </div>
+            <div class="col-2">
+                <b>Vylepšit</b>
+            </div>
+        </div>
+        <div class="row justify-content-around mb-2" *ngFor="let building of data">
+            <div class="col-2">
+                <i [class]="building.icon"></i> {{building.name}}
+            </div>
+            <div class="col-2">
+                {{building.level}}
+            </div>
+            <div class="col-2">
+                {{building.priceGold}} <i class="fas fa-cube" style="color: rgb(139, 126, 0);"></i> / 
+                {{building.priceCoins}} <i class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+            </div>
+            <div class="col-2" id="time-castle">
+               <ng-container *ngIf="settings.buildingUpgradingState !== building.link">{{displayBuildTime(time(building) / settings.speedUp)}}</ng-container>
+               <ng-container *ngIf="settings.buildingUpgradingState === building.link"><strong style="color: darkgreen;">{{upgradingTime}}</strong></ng-container>
+            </div>
+            <div class="col-2">
+                <button class="btn btn-primary upgrade" (click)="upgradeToNewLevel(building, (time(building) / settings.speedUp))" [disabled]="settings.activeBuildState">
+                    Level {{building.level + 1}}</button>
+            </div>
+        </div>
+    </div>
+</div>

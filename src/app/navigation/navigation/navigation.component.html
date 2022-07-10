@@ -1,0 +1,48 @@
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" id="game-navigation">
+
+    <ng-container *ngIf="!editTownName; else editTownNameMode">
+        <a class="navbar-brand ps-3" (click)="editTownName = true">{{settings.townName}}<i
+                class="fas fa-edit ms-2 text-white"></i></a>
+    </ng-container>
+    <ng-template #editTownNameMode>
+        <input matInput class="ms-2" [(ngModel)]="settings.townName"><button class="ms-1 btn btn-primary"
+            (click)="changeTitle()">Ok</button>
+    </ng-template>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 mr-5">
+        <i class="fas fa-bars text-secondary"></i>
+    </button>
+    <span class="ms-auto">
+        <i class="fas fa-chess-pawn" style="color: white;"></i>
+        <span class="text-secondary" style="margin-left: 0.4rem;margin-right: 0.8rem;">{{settings.army.swordsmans}}
+        </span>
+        <i class="fas fa-bullseye" style="color: white;"></i>
+        <span class="text-secondary" style="margin-left: 0.4rem;margin-right: 0.8rem;">{{settings.army.archers}} </span>
+        <i class="fas fa-horse-head" style="color: white;"></i><span class="text-secondary"
+            style="margin-left: 0.4rem;margin-right: 0.8rem;">{{settings.army.horsemans}} </span>
+    </span>
+    <span class="ms-auto">
+        <i class="fas fa-cube" style="color: rgb(139, 126, 0);"></i>
+        <span class="text-secondary" style="margin-left: 0.2rem;margin-right: 0.5rem;">{{settings.gold}} </span><i
+            class="fas fa-circle" style="color: rgb(139, 126, 0);"></i>
+        <span class="text-secondary" style="margin-left: 0.2rem;margin-right: 0.5rem;">{{settings.coins}}</span>
+        <i class="fas fa-trailer"
+            title="Občas se může stát, že se o chvíli zpozdí nebo pracovníkům chvíli trvá než náklad složí. Buď trpělivý a počkej chvilku."
+            style="color: #522900;margin-left: 1.5rem;margin-right: 0.5rem; cursor: help;"></i>
+        <span class="text-secondary">Další dodávka:
+            {{today.getMinutes() > startDate.getMinutes() ? (today.getHours() + 1 == 24 ? 0 : today.getHours() + 1) :
+            today.getHours()}}:{{startDate.getMinutes() < 10 ? '0' + startDate.getMinutes() : startDate.getMinutes()}}
+                </span>
+        </span>
+        <div class="ms-auto" style="cursor: pointer;">
+            <ng-container *ngIf="speed === 1"><a class="nav-link" (click)="speedUp()"><i
+                        class="fas fa-play text-secondary"></i></a></ng-container>
+            <ng-container *ngIf="speed === 2"><a class="nav-link" (click)="speedUp()"><i
+                        class="fas fa-forward text-secondary"></i></a></ng-container>
+            <ng-container *ngIf="speed === 3"><a class="nav-link" (click)="speedUp()"><i
+                        class="fas fa-fast-forward text-secondary"></i></a></ng-container>
+        </div>
+        <ul class="navbar-nav ms-auto me-0 me-md-3 my-2 my-md-0 d-none d-md-inline-block form-inline">
+            <li class="nav-item dropdown"><a class="nav-link"><i class="fas fa-user fa-fw"></i>{{settings.userName}}</a>
+            </li>
+        </ul>
+</nav>
